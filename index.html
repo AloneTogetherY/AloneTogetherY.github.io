@@ -5,82 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Surprise!</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      height: 100vh;
-      overflow: hidden;
-      background: #0a1628;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      color: white;
+      height:100vh; overflow:hidden;
+      background:#0b1e3a;
+      font-family:'Segoe UI', Arial, sans-serif;
+      color:white;
     }
     #map {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.5;
-      z-index: 1;
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; opacity:0.48; z-index:1;
     }
-    #plane {
-      position: fixed;
-      width: 120px;
-      z-index: 10;
-      pointer-events: none;
-      filter: drop-shadow(0 0 20px rgba(255,255,255,0.8));
-      animation: fly 12s linear forwards;
-    }
-    @keyframes fly {
-      0%   { left: -180px; top: 58%; transform: rotate(12deg); }
-      100% { left: 105vw;  top: 32%; transform: rotate(8deg); }
+    .plane {
+      position:fixed; width:110px; z-index:10;
+      pointer-events:none; filter:drop-shadow(0 0 15px white);
     }
     .message {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      font-size: 5rem;
-      font-weight: 900;
-      z-index: 20;
-      padding: 50px 100px;
-      background: rgba(0,0,0,0.6);
-      border-radius: 32px;
-      backdrop-filter: blur(14px);
-      border: 2px solid rgba(255,255,255,0.15);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      animation: appear 3.8s ease-out;
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      text-align:center; font-size:5.2rem; font-weight:900;
+      padding:50px 100px; background:rgba(0,0,0,0.62);
+      border-radius:32px; backdrop-filter:blur(12px);
+      border:2px solid rgba(255,255,255,0.15);
+      box-shadow:0 20px 60px rgba(0,0,0,0.7);
+      z-index:20; animation:appear 3.6s ease-out;
     }
-    .message strong {
-      color: #ff3366;
-      text-shadow: 0 0 30px #ff3366;
-    }
+    .message strong { color:#ff3366; text-shadow:0 0 30px #ff3366; }
     @keyframes appear {
-      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
-      75%  { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
-      100% { transform: translate(-50%, -50%) scale(1); }
+      0%   { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+      75%  { opacity:1; transform:translate(-50%,-50%) scale(1.04); }
+      100% { transform:translate(-50%,-50%) scale(1); }
     }
-    @media (max-width: 640px) {
-      .message { font-size: 2.8rem; padding: 35px 50px; }
-      #plane { width: 85px; }
+    @media (max-width:640px) {
+      .message { font-size:2.9rem; padding:35px 50px; }
+      .plane { width:80px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Fast-loading, high-quality Europe image -->
+  <!-- Reliable Europe background -->
   <img id="map" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1920&q=80" alt="Europe">
 
-  <!-- Clean white airplane silhouette -->
-  <img id="plane" src="https://raw.githubusercontent.com/AloneTogetherY/AloneTogetherY.github.io/main/plane.png" 
-       onerror="this.src='https://cdn-icons-png.flaticon.com/512/3069/3069179.png'" 
-       alt="Airplane">
-
-  <!-- Exact same text as your original -->
+  <!-- Exact original text -->
   <div class="message">
     Surprise Rob!<br>
     You're going to <strong>BUDAPEST</strong>!
   </div>
 
   <script>
+    // Create multiple flying airplanes
+    function createPlane() {
+      const p = document.createElement('img');
+      p.src = 'https://cdn-icons-png.flaticon.com/512/3069/3069179.png';
+      p.className = 'plane';
+      p.style.left = '-150px';
+      p.style.top = Math.random() * 70 + 15 + '%';
+      p.style.animation = `fly${Math.floor(Math.random()*3)+1} ${10 + Math.random()*5}s linear forwards`;
+      document.body.appendChild(p);
+
+      // Random animation variation
+      const keyframes = `
+        @08333333333333333% { left:-150px; transform:rotate(${8+Math.random()*10}deg); }
+        100% { left:110vw; transform:rotate(${5+Math.random()*8}deg); }
+      `;
+      const style = document.createElement('style');
+      style.textContent = `@keyframes fly${Date.now()} ${keyframes}`;
+      document.head.appendChild(style);
+      p.style.animationName = `fly${Date.now()}`;
+    }
+
+    // Start airplanes
+    setTimeout(createPlane, 1000);
+    setInterval(createPlane, 4200); // new plane every ~4 seconds
+
+    // Original alert
     setTimeout(() => alert("Surprise, Rob! You are going to Budapest! Airplane"), 900);
   </script>
 </body>
