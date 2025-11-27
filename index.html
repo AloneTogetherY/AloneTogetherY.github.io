@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise!</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0b1e3a;
+    }
+
+    /* Full-screen Europe map */
+    #map {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Flying airplane */
+    #plane {
+      position: fixed;
+      width: 110px;
+      z-index: 10;
+      pointer-events: none;
+      animation: fly 11s linear forwards;
+    }
+
+    @keyframes fly {
+      0%   { left: -150px; top: 55%; transform: rotate(15deg); }
+      100% { left: 110vw;  top: 30%; transform: rotate(10deg); }
+    }
+
+    /* Big surprise message */
+    .message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4.5rem;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(0,0,0,0.65);
+      padding: 40px 80px;
+      border-radius: 30px;
+      text-align: center;
+      z-index: 20;
+      box-shadow: 0 0 40px rgba(255,100,100,0.8);
+      animation: appear 4s ease-out forwards;
+    }
+
+    @keyframes appear {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+      70%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      .message { font-size: 2.5rem; padding: 30px 40px; }
+      #plane { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Europe map background -->
+  <img id="map" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Europe_orthographic_Caucasus_Urals_boundary_%28with_borders%29.svg/1024px-Europe_orthographic_Caucasus_Urals_boundary_%28with_borders%29.svg.png" alt="Europe">
+
+  <!-- Airplane -->
+  <img id="plane" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Black_Airplane_silhouette.svg/800px-Black_Airplane_silhouette.svg.png" alt="✈️">
+
+  <!-- Surprise text -->
+  <div class="message">
+    Surprise Rob!<br>
+    You're going to <strong style="color:#ff3366;">BUDAPEST</strong>!
+  </div>
+
+  <script>
+    // Pop-up alert as soon as page loads (you can delete this line if you don’t want the alert)
+    setTimeout(() => alert("Surprise, Rob! You are going to Budapest! ✈️"), 800);
+  </script>
+
+</body>
+</html>
