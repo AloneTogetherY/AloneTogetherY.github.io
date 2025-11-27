@@ -6,20 +6,22 @@
   <title>Surprise!</title>
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      height:100vh; overflow:hidden;
-      background:#0b1e3a;
-      font-family:'Segoe UI', Arial, sans-serif;
-      color:white;
-    }
-    #map {
-      position:fixed; top:0; left:0; width:100%; height:100%;
-      object-fit:cover; opacity:0.48; z-index:1;
-    }
+    body { height:100vh; overflow:hidden; background:#0b1e3a; font-family:'Segoe UI',Arial,sans-serif; color:white; }
+    #map { position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.5; z-index:1; }
+
     .plane {
-      position:fixed; width:110px; z-index:10;
-      pointer-events:none; filter:drop-shadow(0 0 15px white);
+      position:fixed; width:110px; z-index:10; pointer-events:none;
+      filter:drop-shadow(0 0 15px white);
     }
+    /* Three reliable flight paths so they don’t overlap too much */
+    .fly1 { animation: fly1 12s linear infinite; }
+    .fly2 { animation: fly2 15s linear infinite; }
+    .fly3 { animation: fly3 13s linear infinite; }
+
+    @keyframes fly1 { 0%{left:-150px; top:25%; transform:rotate(8deg);} 100%{left:110vw; top:22%; transform:rotate(8deg);} }
+    @keyframes fly2 { 0%{left:-150px; top:45%; transform:rotate(12deg);} 100%{left:110vw; top:38%; transform:rotate(10deg);} }
+    @keyframes fly3 { 0%{left:-150px; top:65%; transform:rotate(10deg);} 100%{left:110vw; top:60%; transform:rotate(9deg);} }
+
     .message {
       position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       text-align:center; font-size:5.2rem; font-weight:900;
@@ -43,7 +45,7 @@
 </head>
 <body>
 
-  <!-- Reliable Europe background -->
+  <!-- Reliable background -->
   <img id="map" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1920&q=80" alt="Europe">
 
   <!-- Exact original text -->
@@ -52,34 +54,18 @@
     You're going to <strong>BUDAPEST</strong>!
   </div>
 
+  <!-- Lots of airplanes – they all load instantly -->
+  <img class="plane fly1" style="animation-delay:0s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly2" style="animation-delay:3s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly3" style="animation-delay:6s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly1" style="animation-delay:12s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly2" style="animation-delay:15s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly3" style="animation-delay:18s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly1" style="animation-delay:24s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+  <img class="plane fly2" style="animation-delay:27s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
+
   <script>
-    // Create multiple flying airplanes
-    function createPlane() {
-      const p = document.createElement('img');
-      p.src = 'https://cdn-icons-png.flaticon.com/512/3069/3069179.png';
-      p.className = 'plane';
-      p.style.left = '-150px';
-      p.style.top = Math.random() * 70 + 15 + '%';
-      p.style.animation = `fly${Math.floor(Math.random()*3)+1} ${10 + Math.random()*5}s linear forwards`;
-      document.body.appendChild(p);
-
-      // Random animation variation
-      const keyframes = `
-        @08333333333333333% { left:-150px; transform:rotate(${8+Math.random()*10}deg); }
-        100% { left:110vw; transform:rotate(${5+Math.random()*8}deg); }
-      `;
-      const style = document.createElement('style');
-      style.textContent = `@keyframes fly${Date.now()} ${keyframes}`;
-      document.head.appendChild(style);
-      p.style.animationName = `fly${Date.now()}`;
-    }
-
-    // Start airplanes
-    setTimeout(createPlane, 1000);
-    setInterval(createPlane, 4200); // new plane every ~4 seconds
-
-    // Original alert
-    setTimeout(() => alert("Surprise, Rob! You are going to Budapest! Airplane"), 900);
+    setTimeout(() => alert("Surprise, Rob! You are going to Budapest! ✈️"), 900);
   </script>
 </body>
 </html>
