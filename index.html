@@ -5,67 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Surprise!</title>
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { height:100vh; overflow:hidden; background:#0b1e3a; font-family:'Segoe UI',Arial,sans-serif; color:white; }
-    #map { position:fixed; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.5; z-index:1; }
-
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #0b1e3a;
+    }
+    /* Full-screen Europe map */
+    #map {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+    }
+    /* Flying airplane */
+/* Flying airplane emojis */
     .plane {
-      position:fixed; width:110px; z-index:10; pointer-events:none;
+      position:fixed; font-size:90px; z-index:10; pointer-events:none;
+      animation:linear infinite; user-select:none;
       filter:drop-shadow(0 0 15px white);
     }
-    /* Three reliable flight paths so they don’t overlap too much */
-    .fly1 { animation: fly1 12s linear infinite; }
-    .fly2 { animation: fly2 15s linear infinite; }
-    .fly3 { animation: fly3 13s linear infinite; }
+    .fly1 { top:20%; animation:fly1 12s; }
+    .fly2 { top:42%; animation:fly2 14s; }
+    .fly3 { top:65%; animation:fly3 13s; }
 
-    @keyframes fly1 { 0%{left:-150px; top:25%; transform:rotate(8deg);} 100%{left:110vw; top:22%; transform:rotate(8deg);} }
-    @keyframes fly2 { 0%{left:-150px; top:45%; transform:rotate(12deg);} 100%{left:110vw; top:38%; transform:rotate(10deg);} }
-    @keyframes fly3 { 0%{left:-150px; top:65%; transform:rotate(10deg);} 100%{left:110vw; top:60%; transform:rotate(9deg);} }
-
+    @keyframes fly1 { 0%{left:-100px; transform:rotate(10deg);} 100%{left:110vw; transform:rotate(10deg);} }
+    @keyframes fly2 { 0%{left:-100px; transform:rotate(15deg);} 100%{left:110vw; transform:rotate(12deg);} }
+    @keyframes fly3 { 0%{left:-100px; transform:rotate(8deg);}  100%{left:110vw; transform:rotate(8deg);} }
+    /* Big surprise message */
     .message {
-      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      text-align:center; font-size:5.2rem; font-weight:900;
-      padding:50px 100px; background:rgba(0,0,0,0.62);
-      border-radius:32px; backdrop-filter:blur(12px);
-      border:2px solid rgba(255,255,255,0.15);
-      box-shadow:0 20px 60px rgba(0,0,0,0.7);
-      z-index:20; animation:appear 3.6s ease-out;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4.5rem;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(0,0,0,0.65);
+      padding: 40px 80px;
+      border-radius: 30px;
+      text-align: center;
+      z-index: 20;
+      box-shadow: 0 0 40px rgba(255,100,100,0.8);
+      animation: appear 4s ease-out forwards;
     }
-    .message strong { color:#ff3366; text-shadow:0 0 30px #ff3366; }
     @keyframes appear {
-      0%   { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
-      75%  { opacity:1; transform:translate(-50%,-50%) scale(1.04); }
-      100% { transform:translate(-50%,-50%) scale(1); }
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+      70% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      100% { transform: translate(-50%, -50%) scale(1); }
     }
-    @media (max-width:640px) {
-      .message { font-size:2.9rem; padding:35px 50px; }
-      .plane { width:80px; }
+    @media (max-width: 600px) {
+      .message { font-size: 2.5rem; padding: 30px 40px; }
+      #plane { width: 80px; }
     }
   </style>
 </head>
 <body>
-
-  <!-- Reliable background -->
-  <img id="map" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1920&q=80" alt="Europe">
-
-  <!-- Exact original text -->
+  <!-- Europe map background -->
+  <img id="map" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Europe_orthographic_Caucasus_Urals_boundary_%28with_borders%29.svg/1024px-Europe_orthographic_Caucasus_Urals_boundary_%28with_borders%29.svg.png" alt="Europe">
+  <!-- Airplane -->
+  <div class="plane fly1" style="animation-delay:0s">✈️</div>
+ 
+  <!-- Surprise text -->
   <div class="message">
     Surprise Rob!<br>
-    You're going to <strong>BUDAPEST</strong>!
+    You're going to <strong style="color:#ff3366;">BUDAPEST</strong>!
   </div>
-
-  <!-- Lots of airplanes – they all load instantly -->
-  <img class="plane fly1" style="animation-delay:0s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly2" style="animation-delay:3s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly3" style="animation-delay:6s"   src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly1" style="animation-delay:12s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly2" style="animation-delay:15s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly3" style="animation-delay:18s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly1" style="animation-delay:24s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-  <img class="plane fly2" style="animation-delay:27s"  src="https://cdn-icons-png.flaticon.com/512/3069/3069179.png" alt="Plane">
-
   <script>
-    setTimeout(() => alert("Surprise, Rob! You are going to Budapest! ✈️"), 900);
+    // Pop-up alert as soon as page loads (you can delete this line if you don’t want the alert)
+    // <!-- setTimeout(() => alert("Surprise, Rob! You are going to Budapest! ✈️"),800);-->
   </script>
 </body>
 </html>
